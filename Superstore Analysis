@@ -6,17 +6,20 @@ ORDER BY price;
 
 Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
 
-Select AVG(price)
+Select (item_name),MIN(price)
 FROM superstore;
+
 
 Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies".
 
-SELECT AVG(price) AS total_kitchen_price
+SELECT AVG(price)
 FROM superstore
 WHERE category = 'Kitchen Supplies';
 
-How Many Air Purifiers are in stock?
-
-SELECT SUM(stock_quantity) AS total_air_purifiers
+Come up with your own question about the data and try to answer it using SQL. 
+What are the top 5 most expensive items in the inventory?
+SELECT item_name,category,price
 FROM superstore
-WHERE item_name = 'Air Purifier';
+ORDER BY price DESC
+LIMIT 5;
+
