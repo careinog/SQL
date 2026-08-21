@@ -1,0 +1,63 @@
+Climate Control Analysis
+Database:https://www.db-fiddle.com/f/pxMci1sLL945KHKYvpe9W6/1
+I am analyzing relational data to identify VIP activity, including event participation, hotel reservations, feedback relationships, and RSVP status.
+
+SELECT * FROM vips LIMIT 5;
+--List all VIPs and their hotel reservation information, including VIPs who do not have a reservation.
+SELECT vips.member_id, vips.first_name, vips.last_name,
+       reservations.hotel
+FROM vips
+LEFT JOIN reservations
+    ON vips.member_id = reservations.member_id;
+
+--List 5 VIPs who are presenting, along with the name and type of their event. 
+Select vips.first_name, vips.last_name,events.event_type,events.event_name
+From vips
+Inner Join events
+On vips.event=events.event_id
+limit 5;
+
+--List 5 VIP who is presenting, the event they are presenting at, and the hotel where they are staying is the Hyatt Downtown.
+
+SELECT vips.first_name, vips.last_name,events.event_name, events.event_type,hotels.hotel_name
+FROM vips
+INNER JOIN events
+    ON vips.event = events.event_id
+INNER JOIN reservations
+    ON vips.member_id =reservations.member_id
+INNER JOIN hotels
+    ON reservations.hotel = hotels.hotel_id
+Where hotels.hotel_name='Hyatt Downtown'
+limit 5;
+
+--Show 5 VIP who is giving feedback and the VIP they are providing feedback to.
+Select reviewer.first_name,reviewer.last_name,presenter.first_name,
+presenter.last_name
+From vips reviewer
+Inner Join vips presenter
+On reviewer.provides_feedback_to = presenter.member_id
+limit 5;
+
+--Which VIPs are attending the welcome party? Display their names and their hotel.
+Select vips.first_name,vips.last_name, hotels.hotel_name
+From vips
+Inner Join reservations
+On vips.member_id=reservations.member_id
+INNER JOIN hotels
+    ON reservations.hotel = hotels.hotel_id
+WHERE reservations.welcome_rsvp=1;
+
+--Which VIPs are presenting at a panel?
+Select vips.first_name, vips.last_name
+From vips
+Where event In (Select events.event_id
+              From events
+              Where event_type= 'Panel');
+
+--Which VIPs have confirmed that they will attend the thank-you dinner?
+
+SELECT vips.member_id, vips.first_name, vips.last_name, vips.association
+FROM vips
+JOIN reservations
+    ON vips.member_id = reservations.member_id
+WHERE reservations.dinner_rsvp = 1;
