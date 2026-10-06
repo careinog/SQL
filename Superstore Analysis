@@ -1,23 +1,24 @@
+Superstore Analysis
 https://www.db-fiddle.com/f/PvBAaQwEUSWAxZCsg4Vmx/243
 
-Write a SQL query that orders the items by price.
+1.Write a SQL query that orders the items by price.
 
 Select item_name, price
 FROM superstore
 ORDER BY price;
 
-Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
+2.Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
 
 Select (item_name),MIN(price)
 FROM superstore;
 
-Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies".
+3.Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies".
 
 SELECT AVG(price)
 FROM superstore
 WHERE category = 'Kitchen Supplies';
 
-Come up with your own question about the data and try to answer it using SQL. 
+4. Come up with your own question about the data and try to answer it using SQL. 
 What are the top 5 most expensive items in the inventory?
 SELECT item_name,category,price
 FROM superstore
